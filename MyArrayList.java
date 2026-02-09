@@ -9,7 +9,6 @@ public class MyArrayList<E> {
   private int size;
   private static final int DEFAULT_CAPACITY = 10;
 
-  // Constructor
   public MyArrayList() {
     data = new Object[DEFAULT_CAPACITY];
     size = 0;
@@ -40,21 +39,56 @@ public class MyArrayList<E> {
     }
 
     return (E) data[index];
+  }
 
+  public int size() {
+    return size;
+  }
+
+  public E remove(int index) {
+    if (index < 0 || index > size - 1) {
+      throw new IndexOutOfBoundsException("Index " + index + "is out of bounds for size " + size);
+
+    }
+
+    E removedElement = (E) data[index];
+
+    for (int i = index + 1; i < size; i++) {
+      data[i - 1] = data[i];
+    }
+
+    data[size - 1] = null;
+
+    size = size - 1;
+
+    return removedElement;
+  }
+
+  public boolean contains(E element) {
+    for (int i = 0; i < size; i++) {
+      if (data[i] == null && element == null) {
+        return true;
+      }
+      if (data[i] != null && data[i].equals(element)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public static void main(String[] args) {
     MyArrayList<String> list = new MyArrayList<>();
-    list.add("first");
-    list.add("second");
-    list.add("third");
+    list.add("A");
+    list.add("B");
+    list.add("C");
+    list.add(null);
 
-    System.out.println(list.get(0)); // Should print "first"
-    System.out.println(list.get(1)); // Should print "second"
-    System.out.println(list.get(2)); // Should print "third"
+    System.out.println(list.contains("B")); // Should be true
+    System.out.println(list.contains("Z")); // Should be false
+    System.out.println(list.contains(null)); // Should be true
+    System.out.println(list.contains("A")); // Should be true
 
-    // Test bounds checking
-    list.get(999); // Should throw exception
+    list.remove(1); // Remove "B"
+    System.out.println(list.contains("B")); // Should be false now
   }
-
 }
