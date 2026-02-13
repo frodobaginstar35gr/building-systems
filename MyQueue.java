@@ -22,7 +22,7 @@ public class MyQueue<E> {
       grow();
     }
     data[back] = element;
-    back++; // TODO:: FIX THIS FIRST!!!
+    back = (back + 1) % data.length;
     size++;
   }
 
@@ -55,7 +55,7 @@ public class MyQueue<E> {
     int newCap = data.length * 2;
     Object[] newData = new Object[newCap];
     for (int i = 0; i < size; i++) {
-      newData[i] = data[front + i];
+      newData[i] = data[(front + i) % data.length];
     }
     data = newData;
     front = 0;

@@ -1,3 +1,3 @@
 # building-systemas
 
-  My daily code blog basically 
+  My daily code blog
